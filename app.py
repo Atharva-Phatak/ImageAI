@@ -14,7 +14,7 @@ class AnimeGANFlow(L.LightningFlow):
 
     def run(self):
         self.work.run()
-    
+
     def configure_layout(self):
         return APIAccessFrontend(
             apis=[
@@ -22,11 +22,14 @@ class AnimeGANFlow(L.LightningFlow):
                     "name": "Generate Image",
                     "url": f"{self.work.api_url}/api/predict",
                     "method": "POST",
-                    "request": {"image" : "The input image."},
-                    "response": {"image": "data:image/png;base64,<image-actual-content>"},
+                    "request": {"image": "The input image."},
+                    "response": {
+                        "image": "data:image/png;base64,<image-actual-content>"
+                    },
                 }
             ]
         )
+
 
 if __name__ == "__main__":
     app = L.LightningApp(AnimeGANFlow())
